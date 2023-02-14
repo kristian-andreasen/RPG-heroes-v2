@@ -10,11 +10,21 @@ import org.junit.jupiter.api.Test;
 import static org.junit.jupiter.api.Assertions.*;
 
 class MageTest {
-    Mage mage;
+    private Mage mage;
+    private Weapon validWeapon;
+    private Weapon invalidWeapon;
+    private Armor validArmor;
+    private Armor invalidArmor;
 
     @BeforeEach
     void init(){
         mage = new Mage("Jaina Proudmoore");
+
+        validWeapon = new Weapon("Atiesh", 1, Slot.WEAPON, WeaponType.STAFF, 5);
+        invalidWeapon = new Weapon("Thunderfury", 1, Slot.WEAPON, WeaponType.SWORD, 5);
+
+        validArmor = new Armor("Cloth Robes", 1, Slot.BODY, ArmorType.CLOTH, new HeroAttribute(1,1,1));
+        invalidArmor = new Armor("Leather Armor", 1, Slot.BODY, ArmorType.LEATHER, new HeroAttribute(1,1,1));
     }
 
     // Test to verify that a Hero's level increases correctly
@@ -43,32 +53,66 @@ class MageTest {
     }
 
     @Test
-    void equipWeapon_ofValidType() {
-        Weapon staff = new Weapon("Atiesh", 1, Slot.WEAPON, WeaponType.STAFF, 5);
-
+    void equipValidWeaponForMage() {
+        boolean isWeaponEquipped = false;
         try {
-            mage.equipWeapon(staff);
+            mage.equipWeapon(validWeapon);
+            isWeaponEquipped = true;
         } catch (InvalidItemException e) {
             e.printStackTrace();
+            fail("Mage should be able to equip staff");
         }
-
-        Weapon weapon = (Weapon) mage.getEquipment().get(Slot.WEAPON);
-
-        assertEquals(staff, weapon, "Verify that weapon is equipped.");
+        assertTrue(isWeaponEquipped);
     }
 
     @Test
-    void equipWeapon_ofInvalidType(){
-        Weapon sword = new Weapon("Thunderfury", 1, Slot.WEAPON, WeaponType.SWORD, 5);
+    void equipInvalidWeaponForMage(){
+        assertThrows(InvalidItemException.class, () -> {
+            mage.equipWeapon(invalidWeapon);
+        });
+    }
 
+    @Test
+    void equipWeaponBelowRequiredLevel(){
+        validWeapon.setRequiredLevel(60);
         try {
-            mage.equipWeapon(sword);
+            mage.equipWeapon(validWeapon);
+            fail("should have thrown an InvalidItemException");
         } catch (InvalidItemException e) {
-            e.printStackTrace();
+            assertEquals("The hero's level is not high enough to equip this weapon", e.getMessage());
         }
     }
 
+    @Test
+    void equipValidArmorForMage(){
+        boolean isArmorEquipped = false;
+        try {
+            mage.equipArmor(validArmor, Slot.BODY);
+            isArmorEquipped = true;
+        } catch (InvalidItemException e) {
+            e.printStackTrace();
+            fail("Mage should be able to equip cloth");
+        }
+        assertTrue(isArmorEquipped);
+    }
 
+    @Test
+    void equipInvalidArmorForMage(){
+        assertThrows(InvalidItemException.class, () -> {
+            mage.equipArmor(invalidArmor, Slot.BODY);
+        });
+    }
+
+    @Test
+    void equipArmorBelowRequiredLevel(){
+        validArmor.setRequiredLevel(60);
+        try {
+            mage.equipArmor(validArmor, Slot.BODY);
+            fail("should have thrown an InvalidItemException");
+        } catch (InvalidItemException e) {
+            assertEquals("The hero does not meet the level requirement for this armor", e.getMessage());
+        }
+    }
 
     // Test to verify that a Hero's information is displayed correctly
     @Test

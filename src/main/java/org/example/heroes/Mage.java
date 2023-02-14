@@ -2,6 +2,8 @@ package org.example.heroes;
 
 import org.example.enums.ArmorType;
 import org.example.enums.WeaponType;
+import org.example.items.Armor;
+import org.example.items.Weapon;
 
 import java.util.List;
 
@@ -39,5 +41,15 @@ public class Mage extends Hero{
         this.levelAttributes.setIntelligence(updatedIntelligence);
         this.levelAttributes.setStrength(updatedStrength);
         this.levelAttributes.setDexterity(updatedDexterity);
+    }
+
+    @Override
+    public boolean isValidWeapon(Weapon weapon){
+        return mageValidWeaponTypes.contains(weapon.getWeaponType());
+    }
+
+    @Override
+    public boolean isValidArmor(Armor armor){
+        return mageValidArmorTypes.contains(armor.getArmorType());
     }
 }

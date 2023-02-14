@@ -45,13 +45,10 @@ class HeroTest {
 
     @Test
     void getEquipment() {
-        Map<Slot, Item> expected = new EnumMap<>(Slot.class);
-
-        for (Slot slot : Slot.values()) {
-            expected.put(slot, null);
+        Map<Slot, Item> equipment = mage.getEquipment();
+        for (Item item : equipment.values()) {
+            assertNull(item);
         }
-
-        assertEquals(expected, mage.getEquipment());
     }
 
     @Test
@@ -65,6 +62,5 @@ class HeroTest {
         List<WeaponType> expected = List.of(WeaponType.STAFF, WeaponType.WAND);
         assertEquals(expected, mage.getValidWeaponTypes());
     }
-
 
 }

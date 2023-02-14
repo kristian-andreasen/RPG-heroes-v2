@@ -68,17 +68,32 @@ public abstract class Hero {
 
     abstract void increaseBaseAttributes();
 
-    public void equipWeapon(Weapon weapon) throws InvalidItemException {
-        // Check if the weapon's type is in the list of valid weapon types for the hero
-        if (!validWeaponTypes.contains(weapon.getWeaponType())) {
-            throw new InvalidItemException("This hero cannot equip this type of weapon");
+    public void equipWeapon(Weapon weapon) throws InvalidItemException{
+        if(!isValidWeapon(weapon)) {
+            throw new InvalidItemException("This hero cannot equip this weapon");
         }
+        if(level < weapon.getRequiredLevel()){
+            throw new InvalidItemException("The hero's level is not high enough to equip this weapon");
+        }
+        equipment.put(Slot.WEAPON, weapon);
+    }
 
-        Slot slot = weapon.getSlot();
+    public void equipArmor(Armor armor, Slot slot) throws InvalidItemException{
+        if (!isValidArmor(armor)) {
+            throw new InvalidItemException("This hero cannot equip this type of armor");
+        }
+        if (level < armor.getRequiredLevel()){
+            throw new InvalidItemException("The hero does not meet the level requirement for this armor");
+        }
+        equipment.put(slot, armor);
+    }
 
-        //put the weapon in the equipment map with the slot as the key and the weapon as the value
-        equipment.put(slot, weapon);
+    protected boolean isValidWeapon(Weapon weapon){
+        return true;
+    }
 
+    protected boolean isValidArmor(Armor armor){
+        return true;
     }
 
     public String displayStats() {

@@ -24,4 +24,8 @@ public abstract class Item {
     public Slot getSlot() {
         return slot;
     }
+
+    public void setRequiredLevel(int requiredLevel) {
+        this.requiredLevel = requiredLevel;
+    }
 }

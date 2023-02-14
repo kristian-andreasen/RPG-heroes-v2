@@ -12,6 +12,7 @@ public abstract class Hero {
     protected String name;
     protected int level;
     protected HeroAttribute levelAttributes;
+    protected HeroAttribute totalAttributes;
     protected String heroType;
     // Map to store the equipment, with Slot as the key and Item as the value
     protected Map<Slot, Item> equipment = new EnumMap<>(Slot.class);
@@ -24,6 +25,7 @@ public abstract class Hero {
         this.level = 1;
         this.heroType = heroType;
         this.levelAttributes = levelAttributes;
+        //this.totalAttributes = new HeroAttribute(0,0,0);
         this.validWeaponTypes = validWeaponTypes;
         this.validArmorTypes = validArmorTypes;
 
@@ -88,12 +90,32 @@ public abstract class Hero {
         equipment.put(slot, armor);
     }
 
+    public void unequipArmor(Slot slot) {
+        Armor armor = (Armor) equipment.get(slot);
+        if(armor == null){
+            return;
+        }
+        levelAttributes.remove(armor.getArmorAttributes());
+        equipment.put(slot, null);
+    }
+
     protected boolean isValidWeapon(Weapon weapon){
         return true;
     }
 
     protected boolean isValidArmor(Armor armor){
         return true;
+    }
+
+    public void calculateTotalAttributes(){
+        for(Slot slot : Slot.values()){
+            Item item = equipment.get(slot);
+
+            if(item != null && item instanceof Armor){
+                Armor armor = (Armor) item;
+                levelAttributes.add(armor.getArmorAttributes());
+            }
+        }
     }
 
     public String displayStats() {

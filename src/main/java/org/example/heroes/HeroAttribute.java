@@ -35,6 +35,19 @@ public class HeroAttribute {
         this.intelligence = intelligence;
     }
 
+    public void add(HeroAttribute other){
+        this.strength += other.strength;
+        this.dexterity += other.dexterity;
+        this.intelligence += other.intelligence;
+    }
+
+    public HeroAttribute remove(HeroAttribute attr){
+        this.strength -= attr.strength;
+        this.dexterity -= attr.dexterity;
+        this.intelligence -= attr.intelligence;
+        return this;
+    }
+
     @Override
     public String toString() {
         return String.format("Strength: %d, Dexterity: %d, Intelligence: %d", strength, dexterity, intelligence);

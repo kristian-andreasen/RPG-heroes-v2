@@ -114,6 +114,94 @@ class MageTest {
         }
     }
 
+    @Test
+    void calculateTotalAttributesWithOneArmor(){
+        Armor armor1 = new Armor("Test Armor", 1, Slot.HEAD, ArmorType.CLOTH, new HeroAttribute(1,1,1));
+
+        try {
+            mage.equipArmor(armor1, Slot.HEAD);
+        } catch(InvalidItemException e){
+            e.printStackTrace();
+        }
+
+        mage.calculateTotalAttributes();
+
+        HeroAttribute expectedAttributes = new HeroAttribute(2,2,9);
+        HeroAttribute actualAttributes = mage.getLevelAttributes();
+
+        assertEquals(expectedAttributes, actualAttributes);
+    }
+
+    @Test
+    void calculateTotalAttributesWithTwoArmor() {
+        Armor armor1 = new Armor("Test Armor 1", 1, Slot.HEAD, ArmorType.CLOTH, new HeroAttribute(1,1,1));
+        Armor armor2 = new Armor("Test Armor 2", 1, Slot.BODY, ArmorType.CLOTH, new HeroAttribute(1,1,1));
+
+        try {
+            mage.equipArmor(armor1, Slot.HEAD);
+            mage.equipArmor(armor2, Slot.BODY);
+        } catch(InvalidItemException e){
+            e.printStackTrace();
+        }
+        mage.calculateTotalAttributes();
+
+        HeroAttribute expectedAttributes = new HeroAttribute(3,3,10);
+        HeroAttribute actualAttributes = mage.getLevelAttributes();
+
+        assertEquals(expectedAttributes, actualAttributes);
+    }
+
+    @Test
+    void calculateTotalAttributesWithThreeArmor() {
+        Armor armor1 = new Armor("Test Armor 1", 1, Slot.HEAD, ArmorType.CLOTH, new HeroAttribute(1,1,1));
+        Armor armor2 = new Armor("Test Armor 2", 1, Slot.BODY, ArmorType.CLOTH, new HeroAttribute(1,1,1));
+        Armor armor3 = new Armor("Test Armor 3", 1, Slot.LEGS, ArmorType.CLOTH, new HeroAttribute(1,1,1));
+
+        try {
+            mage.equipArmor(armor1, Slot.HEAD);
+            mage.equipArmor(armor2, Slot.BODY);
+            mage.equipArmor(armor3, Slot.LEGS);
+        } catch(InvalidItemException e){
+            e.printStackTrace();
+        }
+        mage.calculateTotalAttributes();
+
+        HeroAttribute expectedAttributes = new HeroAttribute(4,4,11);
+        HeroAttribute actualAttributes = mage.getLevelAttributes();
+
+        assertEquals(expectedAttributes, actualAttributes);
+    }
+
+    @Test
+    void replacedArmor(){
+        Armor armor1 = new Armor("Test Armor 1", 1, Slot.HEAD, ArmorType.CLOTH, new HeroAttribute(1,1,1));
+        Armor armor2 = new Armor("Test Armor 2", 1, Slot.HEAD, ArmorType.CLOTH, new HeroAttribute(2,2,2));
+
+        try {
+            mage.equipArmor(armor1, Slot.HEAD);
+        } catch(InvalidItemException e){
+            e.printStackTrace();
+        }
+
+        mage.calculateTotalAttributes();
+
+
+        try {
+            mage.unequipArmor(Slot.HEAD);
+            mage.equipArmor(armor2, Slot.HEAD);
+        } catch(InvalidItemException e){
+            e.printStackTrace();
+        }
+
+        mage.calculateTotalAttributes();
+
+        HeroAttribute expectedAttributes = new HeroAttribute(3,3,10);
+        HeroAttribute actualAttributes = mage.getLevelAttributes();
+
+        assertEquals(expectedAttributes, actualAttributes);
+
+    }
+
     // Test to verify that a Hero's information is displayed correctly
     @Test
     void displayStats() {

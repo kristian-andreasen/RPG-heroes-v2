@@ -1,7 +1,14 @@
 package org.example.heroes;
 
+import org.example.enums.*;
+import org.example.items.*;
+
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
+
+import java.util.EnumMap;
+import java.util.List;
+import java.util.Map;
 
 import static org.junit.jupiter.api.Assertions.*;
 
@@ -13,61 +20,51 @@ class HeroTest {
         mage = new Mage("Jaina Proudmoore");
     }
 
+    // All these tests are for testing the initial creation of a hero
+
     @Test
     void getName(){
-        String expectedName = "Jaina Proudmoore";
-        String actualName = mage.getName();
-        assertEquals(expectedName, actualName);
-    }
-
-    @Test
-    void getLevelAttributes() {
-        int actualStrength = mage.levelAttributes.getStrength();
-        int actualDexterity = mage.levelAttributes.getDexterity();
-        int actualIntelligence = mage.levelAttributes.getIntelligence();
-
-        int expectedStrength = 1;
-        int expectedDexterity = 1;
-        int expectedIntelligence = 8;
-
-        assertEquals(expectedStrength, actualStrength);
-        assertEquals(expectedDexterity, actualDexterity);
-        assertEquals(expectedIntelligence, actualIntelligence);
+        assertEquals("Jaina Proudmoore", mage.getName());
     }
 
     @Test
     void getLevel(){
-        int expectedLevel = 1;
-        int actualLevel = mage.getLevel();
-        assertEquals(expectedLevel, actualLevel);
+        assertEquals(1, mage.getLevel());
     }
 
     @Test
-    void levelUp() {
-        mage.levelUp();
-        mage.levelUp();
-        mage.levelUp();
-
-        int expected = 4;
-        int actual = mage.getLevel();
-
-        assertEquals(expected, actual);
+    void getLevelAttributes(){
+        HeroAttribute expected = new HeroAttribute(1,1,8);
+        assertEquals(expected, mage.getLevelAttributes());
     }
 
     @Test
-    void increaseAttributes() {
-        mage.increaseBaseAttributes();
-
-        int expectedStrength = 2;
-        int expectedDexterity = 2;
-        int expectedIntelligence = 13;
-
-        int actualStrength = mage.levelAttributes.getStrength();
-        int actualDexterity = mage.levelAttributes.getDexterity();
-        int actualIntelligence = mage.levelAttributes.getIntelligence();
-
-        assertEquals(expectedStrength, actualStrength);
-        assertEquals(expectedDexterity, actualDexterity);
-        assertEquals(expectedIntelligence, actualIntelligence);
+    void getHeroType() {
+        assertEquals("Mage", mage.getHeroType());
     }
+
+    @Test
+    void getEquipment() {
+        Map<Slot, Item> expected = new EnumMap<>(Slot.class);
+
+        for (Slot slot : Slot.values()) {
+            expected.put(slot, null);
+        }
+
+        assertEquals(expected, mage.getEquipment());
+    }
+
+    @Test
+    void getValidWeaponTypes() {
+        List<ArmorType> expected = List.of(ArmorType.CLOTH);
+        assertEquals(expected, mage.getValidArmorTypes());
+    }
+
+    @Test
+    void getValidArmorTypes() {
+        List<WeaponType> expected = List.of(WeaponType.STAFF, WeaponType.WAND);
+        assertEquals(expected, mage.getValidWeaponTypes());
+    }
+
+
 }

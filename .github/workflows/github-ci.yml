@@ -1,2 +1,2 @@
-- name: Test Reporting
+- name: github-ci
   uses: phoenix-actions/test-reporting@v10

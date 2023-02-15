@@ -4,6 +4,7 @@ import org.example.enums.*;
 import org.example.items.*;
 import org.example.exceptions.InvalidItemException;
 
+import java.text.DecimalFormat;
 import java.util.EnumMap;
 import java.util.List;
 import java.util.Map;
@@ -116,6 +117,25 @@ public abstract class Hero {
                 levelAttributes.add(armor.getArmorAttributes());
             }
         }
+    }
+
+    public double calculateDamage() {
+        double damagingAttribute = 0;
+        Weapon equippedWeapon = (Weapon) equipment.get(Slot.WEAPON);
+
+        if(this instanceof Mage){
+            damagingAttribute = levelAttributes.getIntelligence();
+        }
+
+        if(equippedWeapon == null){
+            return 1;
+        }
+
+        double damage = equippedWeapon.getWeaponDamage()*(1+damagingAttribute/100);
+        DecimalFormat decimalFormat = new DecimalFormat("#.##");
+
+        //return Double.parseDouble(decimalFormat.format(damage));
+        return damage;
     }
 
     public String displayStats() {

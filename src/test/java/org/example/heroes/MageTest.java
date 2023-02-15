@@ -199,7 +199,20 @@ class MageTest {
         HeroAttribute actualAttributes = mage.getLevelAttributes();
 
         assertEquals(expectedAttributes, actualAttributes);
+    }
 
+    @Test
+    public void calculateDamage(){
+        try {
+            mage.equipWeapon(validWeapon);
+        } catch (InvalidItemException e) {
+            e.printStackTrace();
+            fail("Mage should be able to equip staff");
+        }
+
+        double expectedDamage = validWeapon.getWeaponDamage()*(1+(double)mage.getLevelAttributes().getIntelligence()/100);
+        double actualDamage = mage.calculateDamage();
+        assertEquals(expectedDamage, actualDamage);
     }
 
     // Test to verify that a Hero's information is displayed correctly

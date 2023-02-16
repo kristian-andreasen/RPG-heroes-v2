@@ -21,6 +21,14 @@ public abstract class Hero {
     private List<WeaponType> validWeaponTypes;
     private List<ArmorType> validArmorTypes;
 
+    /**
+     * Constructor for the Weapon class
+     * @param name the name of the hero
+     * @param heroType the required type of hero
+     * @param levelAttributes the attributes at lvl 1
+     * @param validWeaponTypes the weapons that a hero is able to equip
+     * @param validArmorTypes the armors that a hero is able to equip
+     */
     public Hero(String name, String heroType, HeroAttribute levelAttributes, List<WeaponType> validWeaponTypes, List<ArmorType> validArmorTypes) {
         this.name = name;
         this.level = 1;

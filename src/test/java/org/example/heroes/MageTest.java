@@ -202,7 +202,7 @@ class MageTest {
     }
 
     @Test
-    public void calculateDamage(){
+    public void calculateDamageWithWeapon(){
         try {
             mage.equipWeapon(validWeapon);
         } catch (InvalidItemException e) {
@@ -215,11 +215,59 @@ class MageTest {
         assertEquals(expectedDamage, actualDamage);
     }
 
+    @Test
+    public void calculateDamageWithoutWeapon(){
+        double expectedDamage = 1;
+        double actualDamage = mage.calculateDamage();
+        assertEquals(expectedDamage, actualDamage);
+    }
+
+    @Test
+    public void calculateDamageWithReplacedWeapon(){
+        Weapon weapon1 = new Weapon("Atiesh", 1, Slot.WEAPON, WeaponType.STAFF, 5);
+        Weapon weapon2 = new Weapon("Atiesh", 1, Slot.WEAPON, WeaponType.STAFF, 10);
+
+        try {
+            mage.equipWeapon(weapon1);
+            mage.equipWeapon(weapon2);
+        } catch (InvalidItemException e) {
+            e.printStackTrace();
+            fail("Mage should be able to equip staff");
+        }
+
+        double expectedDamage = weapon2.getWeaponDamage()*(1+(double)mage.getLevelAttributes().getIntelligence()/100);
+        double actualDamage = mage.calculateDamage();
+
+        assertEquals(expectedDamage, actualDamage);
+    }
+
+    @Test public void calculateDamageWithArmorAndWeapon(){
+        Armor armor1 = new Armor("Test Armor 1", 1, Slot.HEAD, ArmorType.CLOTH, new HeroAttribute(1,1,1));
+        Armor armor2 = new Armor("Test Armor 2", 1, Slot.BODY, ArmorType.CLOTH, new HeroAttribute(1,1,1));
+        Armor armor3 = new Armor("Test Armor 3", 1, Slot.LEGS, ArmorType.CLOTH, new HeroAttribute(1,1,1));
+        Weapon weapon1 = new Weapon("Atiesh", 1, Slot.WEAPON, WeaponType.STAFF, 5);
+
+        try {
+            mage.equipArmor(armor1, Slot.HEAD);
+            mage.equipArmor(armor2, Slot.BODY);
+            mage.equipArmor(armor3, Slot.LEGS);
+            mage.equipWeapon(weapon1);
+        } catch(InvalidItemException e){
+            e.printStackTrace();
+        }
+        mage.calculateTotalAttributes();
+
+        double expectedDamage = weapon1.getWeaponDamage()*(1+(double)mage.getLevelAttributes().getIntelligence()/100);
+        double actualDamage = mage.calculateDamage();
+
+        assertEquals(expectedDamage, actualDamage);
+    }
+
     // Test to verify that a Hero's information is displayed correctly
     @Test
     void displayStats() {
 
-        String expected = "name: Jaina Proudmoore | heroType: Mage | level: 1 | Strength: 1, Dexterity: 1, Intelligence: 8";
+        String expected = "name: Jaina Proudmoore | heroType: Mage | level: 1 | Strength: 1, Dexterity: 1, Intelligence: 8 | dps: 1.0";
 
         assertEquals(expected, mage.displayStats());
     }

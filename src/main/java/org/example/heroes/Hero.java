@@ -143,7 +143,8 @@ public abstract class Hero {
         sb.append("name: " + name + " | ");
         sb.append("heroType: " + heroType + " | ");
         sb.append("level: " + level + " | ");
-        sb.append(levelAttributes);
+        sb.append(levelAttributes + " | ");
+        sb.append("dps: " + this.calculateDamage());
         return sb.toString();
     }
 

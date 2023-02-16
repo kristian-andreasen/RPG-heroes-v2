@@ -8,8 +8,6 @@ import org.example.items.Weapon;
 import java.util.List;
 
 public class Mage extends Hero{
-    //private static final int[] mageStartingAttributes = {1, 1, 8};
-    //private static final int[] mageLevelUpAttributes = {1, 1, 5};.
     private static final String heroType = "Mage";
     private static final int MAGE_STARTING_STRENGTH = 1;
     private static final int MAGE_STARTING_DEXTERITY = 1;

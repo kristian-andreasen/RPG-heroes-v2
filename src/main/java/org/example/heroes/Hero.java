@@ -100,13 +100,9 @@ public abstract class Hero {
         equipment.put(slot, null);
     }
 
-    protected boolean isValidWeapon(Weapon weapon){
-        return true;
-    }
+    abstract boolean isValidWeapon(Weapon weapon);
 
-    protected boolean isValidArmor(Armor armor){
-        return true;
-    }
+    abstract boolean isValidArmor(Armor armor);
 
     public void calculateTotalAttributes(){
         for(Slot slot : Slot.values()){

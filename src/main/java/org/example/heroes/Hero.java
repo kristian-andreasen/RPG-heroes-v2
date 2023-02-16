@@ -21,7 +21,7 @@ public abstract class Hero {
     private List<ArmorType> validArmorTypes;
 
     /**
-     * Constructor for the Weapon class
+     * Constructor for the Hero class
      * @param name the name of the hero
      * @param heroType the type of hero
      * @param levelAttributes the attributes at lvl 1

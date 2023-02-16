@@ -1,5 +1,8 @@
 # RPG Heroes
+the backend code for a RPG like game.
 
+### Test Report
+A report of passed unit tests (the only tyoe if test used for this project) can be viewed in the "Actions" tab of this repo. 
 
 ### UML Class Diagram
 Generated with Intellij 

@@ -9,14 +9,14 @@ import java.util.List;
 
 public class Rogue extends Hero{
     private static final String heroType = "ROGUE";
-    private static final int ROGUE_STARTING_STRENGTH = 5;
-    private static final int ROGUE_STARTING_DEXTERITY = 2;
+    private static final int ROGUE_STARTING_STRENGTH = 2;
+    private static final int ROGUE_STARTING_DEXTERITY = 6;
     private static final int ROGUE_STARTING_INTELLIGENCE = 1;
-    private static final int ROGUE_LEVELING_STRENGTH = 3;
-    private static final int ROGUE_LEVELING_DEXTERITY = 2;
+    private static final int ROGUE_LEVELING_STRENGTH = 1;
+    private static final int ROGUE_LEVELING_DEXTERITY = 4;
     private static final int ROGUE_LEVELING_INTELLIGENCE = 1;
-    private static final List<WeaponType> rogueValidWeaponTypes = List.of(WeaponType.AXE, WeaponType.HAMMER,  WeaponType.SWORD);
-    private static final List<ArmorType> rogueValidArmorTypes = List.of(ArmorType.MAIL, ArmorType.PLATE);
+    private static final List<WeaponType> rogueValidWeaponTypes = List.of(WeaponType.DAGGER, WeaponType.SWORD);
+    private static final List<ArmorType> rogueValidArmorTypes = List.of(ArmorType.MAIL, ArmorType.LEATHER);
 
     public Rogue(String name) {
         super(name, heroType, new HeroAttribute(ROGUE_STARTING_STRENGTH, ROGUE_STARTING_DEXTERITY, ROGUE_STARTING_INTELLIGENCE), rogueValidWeaponTypes, rogueValidArmorTypes);

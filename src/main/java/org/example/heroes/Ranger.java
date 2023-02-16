@@ -9,14 +9,14 @@ import java.util.List;
 
 public class Ranger extends Hero{
     private static final String heroType = "RANGER";
-    private static final int RANGER_STARTING_STRENGTH = 5;
-    private static final int RANGER_STARTING_DEXTERITY = 2;
+    private static final int RANGER_STARTING_STRENGTH = 1;
+    private static final int RANGER_STARTING_DEXTERITY = 7;
     private static final int RANGER_STARTING_INTELLIGENCE = 1;
-    private static final int RANGER_LEVELING_STRENGTH = 3;
-    private static final int RANGER_LEVELING_DEXTERITY = 2;
+    private static final int RANGER_LEVELING_STRENGTH = 1;
+    private static final int RANGER_LEVELING_DEXTERITY = 5;
     private static final int RANGER_LEVELING_INTELLIGENCE = 1;
-    private static final List<WeaponType> rangerValidWeaponTypes = List.of(WeaponType.AXE, WeaponType.HAMMER,  WeaponType.SWORD);
-    private static final List<ArmorType> rangerValidArmorTypes = List.of(ArmorType.MAIL, ArmorType.PLATE);
+    private static final List<WeaponType> rangerValidWeaponTypes = List.of(WeaponType.BOW);
+    private static final List<ArmorType> rangerValidArmorTypes = List.of(ArmorType.MAIL, ArmorType.LEATHER);
 
 
     public Ranger(String name) {
